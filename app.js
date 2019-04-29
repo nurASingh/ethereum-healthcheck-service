@@ -9,8 +9,14 @@ var usersRouter = require('./routes/users');;
 var Web3 = require('web3');
 var app = express();
 var send = require('./service/email');
-web3Http = new Web3(new Web3.providers.HttpProvider('http://10.35.241.251:22000'));
-web3Socket = new Web3(new Web3.providers.WebsocketProvider("ws://10.35.241.251:22005"));
+try {
+    web3Http = new Web3(new Web3.providers.HttpProvider('http://10.35.241.251:22000'));
+    web3Socket = new Web3(new Web3.providers.WebsocketProvider("ws://10.35.241.251:22005"));
+} catch (exception) {
+    console.log("Error in Making RPC call ; Quorum node down" + exception);
+    send("Error in Making RPC call ; Quorum node down" + exception);
+}
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
@@ -51,5 +57,10 @@ subscription.on("data", function(transaction) {
 subscription.on("error", function(transaction) {
     console.log(transaction);
 });
+
+process.on('unhandledRejection', (err, p) => {
+    send("Error while connecting quorum");
+});
+
 
 module.exports = app;

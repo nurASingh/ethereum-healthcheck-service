@@ -11,23 +11,23 @@ router.get('/', function(req, res, next) {
     res.render('index', { title: 'Express' });
 });
 
-
-
-
 router.get('/health', function(req, res, next) {
-    var peers = getPeersCount(function(data) {
-        message = "Connected Peers = " + data + "\n";
-        var accounts = getAccountsCount(function(data1) {
-            message += "Accounts = " + data1;
-            if (data1) {
-                send(message);
-            }
+    try {
+        var peers = getPeersCount(function(data, data2) {
+            message = "Connected Peers = " + data + data2 + "\n";
+            var accounts = getAccountsCount(function(accountData) {
+                message += "Accounts = " + accountData;
+                if (accountData) {
+                    send(message);
+                }
+            });
         });
 
-    });
+    } catch (ex) {
+        send(ex);
+    }
 
-
-    res.render('index', { title: 'Express' });
+    res.send('OK');
 });
 
 module.exports = router;
