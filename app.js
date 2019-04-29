@@ -9,8 +9,8 @@ var usersRouter = require('./routes/users');
 var Web3 = require('web3');
 var app = express();
 
-web3Http = new Web3(new Web3.providers.HttpProvider('http://	10.35.241.251:22000'));
-web3Socket = new Web3(new Web3.providers.WebsocketProvider("ws://	10.35.241.251:22005"));
+web3Http = new Web3(new Web3.providers.HttpProvider('http://10.35.241.251:22000'));
+web3Socket = new Web3(new Web3.providers.WebsocketProvider("ws://10.35.241.251:22005"));
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));

@@ -10,7 +10,7 @@ router.get('/', function(req, res, next) {
 router.get('/health', function(req, res, next) {
     // const web3 = new Web3(new Web3.providers.HttpProvider('http://3.94.188.142:22000'));
     // const web3Provider = new Web3(new Web3.providers.WebsocketProvider("ws://3.94.188.142:22005"));
-    // console.log(web3.eth.net.getPeerCount().then(console.log));
+    console.log(web3Http.eth.net.getPeerCount().then(console.log));
     // //console.log(web3Provider);
 
     // //web3.eth.getBlock('pending');
