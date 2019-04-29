@@ -5,13 +5,12 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
 var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
+var usersRouter = require('./routes/users');;
 var Web3 = require('web3');
 var app = express();
-
+var send = require('./service/email');
 web3Http = new Web3(new Web3.providers.HttpProvider('http://10.35.241.251:22000'));
 web3Socket = new Web3(new Web3.providers.WebsocketProvider("ws://10.35.241.251:22005"));
-
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
@@ -39,6 +38,18 @@ app.use(function(err, req, res, next) {
     // render the error page
     res.status(err.status || 500);
     res.render('error');
+});
+
+
+subscription = web3Socket.eth.subscribe('pendingTransactions');
+subscription.on("data", function(transaction) {
+    var message = "There are pending transaction = " + transaction;
+    send(message);
+    console.log(transaction);
+});
+
+subscription.on("error", function(transaction) {
+    console.log(transaction);
 });
 
 module.exports = app;

@@ -1,9 +1,7 @@
 "use strict";
 
-function getPeersCount() {
-    var peers = web3.eth.net.getPeerCount().then(console.log);
-    console.log(peers);
-    return peers;
+function getPeersCount(callback) {
+    var peers = web3Http.eth.net.getPeerCount().then(callback);
 }
 
 module.exports = getPeersCount;

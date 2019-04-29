@@ -7,7 +7,7 @@ var exec = require('child_process').exec;
 var body = "Test";
 
 function sendEmail(token) {
-    log.info("Sending email notification........");
+    console.log("Sending email notification........");
     var auth = 'bearer ' + token.toString();
     var options = {
         method: 'POST',
@@ -26,8 +26,7 @@ function sendEmail(token) {
                 style: 'sync',
                 persist: true,
                 details: {
-                    to: 'arunkumar.singh2@markit.com;',
-                    "attachments": ["../../../reports/generatedReport.html"],
+                    to: 'arunkumar.singh2@markit.com',
                     subject: 'Quorum Heacheck Notification',
                     body: body,
                     from: 'MK-MCPNotification@ihsmarkit.com'
