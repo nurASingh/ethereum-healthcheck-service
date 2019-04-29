@@ -7,7 +7,7 @@ var exec = require('child_process').exec;
 var body = "Test";
 
 function sendEmail(token) {
-    console.log("Sending email notification........");
+    log.info("Sending email notification........");
     var auth = 'bearer ' + token.toString();
     var options = {
         method: 'POST',
@@ -45,7 +45,7 @@ function sendEmail(token) {
 
     request(options, function(error, response, body) {
         if (error) throw new Error(error);
-        console.log(body);
+        log.info(body);
     });
 }
 
@@ -54,14 +54,14 @@ function getToken(callback) {
         if (!error) {
             callback(stdout);
         } else {
-            console.log("Error in getting token");
+            log.info("Error in getting token");
         }
     });
 }
 
 function send(message) {
     if (!message) {
-        body = "Test Case failed";
+        body = "Error";
     } else {
         body = message;
     }
